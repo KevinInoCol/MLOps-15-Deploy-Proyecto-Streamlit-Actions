@@ -21,6 +21,8 @@ gcloud artifacts repositories create repo-mlops14-streamlit-ml --repository-form
 
 
 ## Cuando deseas volver a subir por algun error corres lo siguiente:
+- git remote remove origin
+
 - git add .
 - git commit -m "Correccion3"
 - git push origin main
