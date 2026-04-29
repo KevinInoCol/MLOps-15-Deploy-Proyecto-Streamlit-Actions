@@ -29,6 +29,5 @@ gcloud artifacts repositories create repositorio-mlops15-streamlit-ml --reposito
 - git status
 - git add .
 - git commit -m "Ajustes en workflow de CI/CD"
-- git push origin main
-
+- git push
 
