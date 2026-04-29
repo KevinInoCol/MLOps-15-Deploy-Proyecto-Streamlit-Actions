@@ -2,13 +2,17 @@
 gcloud init
 
 ## Paso 1: Creación del repositorio en Artifact Registry (GCP)
-gcloud artifacts repositories create repo-mlops14-streamlit-ml --repository-format docker --project mlops-14-project-deploy-fast --location us-central1
+gcloud artifacts repositories create repositorio-mlops15-streamlit-ml --repository-format docker --project datapath-kevin-inofuente --location us-central1
 
 ## Paso 2: Crear el repo de github
 
 ## Paso 3: Crear la Key de la Cuenta de Servicio
 
 ## Paso 4: Colocar el Service Account Key en GitHub Settings
+- Debes ir a Secrets and variables
+- Luego a Actions
+- Clic en New repository secret
+- El nombre del Secreto es "GCP_SERVICE_ACCOUNT_KEY"
 
 ## Paso Automatizacion:
 - git init
@@ -28,15 +32,3 @@ gcloud artifacts repositories create repo-mlops14-streamlit-ml --repository-form
 - git push origin main
 
 
-
-
-
-
-
-
-
-
-
-
-## Paso 4: OPCIONAL, Dar permisos de acceso a mi APLICACION. ESTO SE EJECUTA UNA SOLA VEZ
-gcloud run services set-iam-policy servicio-streamlit-sesion3-kevin-inofuente gcr-service-policy.yaml --region us-central1 --project project-mlops-10-streamlit
