@@ -1,4 +1,3 @@
-#modelo_ml_streamlit.py
 import streamlit as st #Para hacer una web de datos
 from PIL import Image #Para el manejo de imágenes
 import pandas as pd #Para generar los Dataframes de mis CSV
@@ -14,16 +13,21 @@ from feature_engine.encoding import OrdinalEncoder, RareLabelEncoder
 from sklearn.preprocessing import MinMaxScaler, Binarizer
 from sklearn.pipeline import Pipeline
 
-import input.preprocessors as pp
+import sys
+import preprocessors as pp
 from configuraciones import config
+
+# El pipeline .joblib fue entrenado en notebooks/ con `import preprocessors as pp`
+# (top-level), así que joblib.load espera resolver `preprocessors` sin prefijo.
+sys.modules.setdefault("preprocessors", pp)
 #------------------------------------------------------------------------------------------------
 
 def prediccion_o_inferencia(pipeline_de_test, datos_de_test):
     #Dropeamos
     datos_de_test.drop('Id', axis=1, inplace=True)
-    # Cast MSSubClass as object
-    datos_de_test['MSSubClass'] = datos_de_test['MSSubClass'].astype('O')
-    datos_de_test = datos_de_test[config.FEATURES] #Aquí estoy aplicando mi SELECTED FEATURES
+    # Cast all categorical variables as object to avoid dtype conflicts with RareLabelEncoder
+    datos_de_test[config.CATEGORICAL_VARS] = datos_de_test[config.CATEGORICAL_VARS].astype(str)
+    datos_de_test = datos_de_test[config.FEATURES] #ESTA ES LA UNICA LINEA DIFERENTE DEL JUPYTER
 
     new_vars_with_na = [
         var for var in config.FEATURES
@@ -39,12 +43,10 @@ def prediccion_o_inferencia(pipeline_de_test, datos_de_test):
 
     return predicciones, predicciones_sin_escalar, datos_de_test
 
-
-
 #Diseno de la Interface
-st.title("Proyecto Modelo Lasso Regressor - Kevin Inofuente Colque - DATAPATH")
+st.title("Proyecto Modelo ML - Nombre Apellido - DATAPATH")
 
-image = Image.open('src/images/datapath-logo.png') #src/
+image = Image.open('src/images/datapath-logo.png') #COMPLETAR CON UNA IMAGEN
 st.image(image, use_container_width=True) #use_column_width esta "deprecated"
 
 st.sidebar.write("Suba el archivo CSV correspondiente para realizar la predicción")
@@ -62,7 +64,7 @@ if uploaded_file is not None:
     st.dataframe(df_de_los_datos_subidos)
 #-------------------------------------------------------------------------------------------
 #Cargar el Modelo ML o Cargar el Pipeline
-pipeline_de_produccion = joblib.load('src/precio_casas_pipeline.joblib') #src/
+pipeline_de_produccion = joblib.load('src/precio_casas_pipeline.joblib')
 
 if st.sidebar.button("click aqui para enviar el CSV al Pipeline"):
     if uploaded_file is None:
