@@ -19,6 +19,7 @@ gcloud artifacts repositories create repositorio-mlops15-streamlit-ml --reposito
 - git add .
 - git commit -m "Proyecto de automatización de despliegue en GCR"
 - git branch -M main
+- git remote set-url origin https://github.com/KevinInoCol/MLOps-Deploy-GCP-Actions.git
 - git remote add origin https://github.com/KevinInoCol/mlops-14-ml-regression-casas-streamlit.git
 - git push -u origin main
 
