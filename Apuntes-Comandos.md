@@ -26,10 +26,9 @@ gcloud artifacts repositories create repositorio-mlops15-streamlit-ml --reposito
 
 
 ## Cuando deseas volver a subir por algun error corres lo siguiente:
-- git remote remove origin
-
+- git status
 - git add .
-- git commit -m "Correccion3"
+- git commit -m "Ajustes en workflow de CI/CD"
 - git push origin main
 
 
